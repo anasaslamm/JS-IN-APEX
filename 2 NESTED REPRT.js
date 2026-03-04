@@ -1,3 +1,22 @@
+// JUST MAKE SURE TO USE .btn-expand IN FIRST AND .btn-sub-expand IN SECOND NESTED REPORT
+
+  // BUTTON FOR FIRST NEST
+   <a href="javascript:void(0);" 
+   class="btn-expand t-Button t-Button--simple t-Button--success" 
+   data-coa_id="#COA_ID#">
+   DETAILS
+   </a>
+
+  // BUTTON FOR SECOND NEST
+   <a href="javascript:void(0);" 
+   class="btn-sub-expand t-Button t-Button--simple t-Button--success" 
+   data-hrmis="#STOCK_ID#">
+   DETAILS
+   </a>
+
+
+
+
 (function () {
   var $ = apex.jQuery;
 
