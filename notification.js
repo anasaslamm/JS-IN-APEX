@@ -52,7 +52,7 @@ function _buildDropdown(anchor){
     dd.innerHTML =
       '<div class="nd-h">'+
         '<span class="nd-h-title">Notifications</span>'+
-        '<span class="nd-mab" onclick="NOTIF.markAllRead()">Mark all as read</span>'+
+        '<span class="nd-mab" id="nd-mark-all-read">Mark all as read</span>'+
       '</div>'+
       '<div id="nd-list"></div>'+
       '<div class="nd-f">'+
@@ -86,8 +86,17 @@ function _buildDropdown(anchor){
 
     dd.addEventListener('click',function(e){
         e.stopPropagation(); 
-        e.preventDefault(); 
     });
+
+    // Add event listener for "Mark all as read" button
+    var markAllReadButton = dd.querySelector('#nd-mark-all-read');
+    if (markAllReadButton) {
+        markAllReadButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            NOTIF.markAllRead();
+        });
+    }
 
   }
 
@@ -119,7 +128,7 @@ function _buildDropdown(anchor){
         '</div>'+
         '<div class="nd-right">'+
           (u?'<div class="nd-dot"></div>':'<div style="width:8px"></div>')+
-          (u ? '<span class="nd-rb" onclick="event.stopPropagation();NOTIF.flashItem('+n.id+',event)">✓ read</span>' : '<div></div>')
+          (u ? '<span class="nd-rb" onclick="event.stopPropagation();NOTIF.flashItem('+n.id+',event)">✓ read</span>' : '<div></div>')+
         '</div>'+
       '</div>';
     }).join('');
@@ -204,15 +213,12 @@ function _buildDropdown(anchor){
     },
 
     markAllRead:function(){
-  apex.server.process('MARK_ALL_NOTIFICATIONS_READ',{},{
-    dataType:'json',
-    success:function(){NOTIF.load();NOTIF.refresh();},
-    // ✅ Add this — shows what server actually returned
-    error:function(xhr){
-      console.error('markAllRead error:',xhr.responseText);
-    }
-  });
-},
+      // No need for e.preventDefault() and e.stopPropagation() here as this function is called from an event listener that already handles it.
+      apex.server.process('MARK_ALL_NOTIFICATIONS_READ',{},{
+        dataType:'json',
+        success:function(){NOTIF.load();NOTIF.refresh();}
+      });
+    },
 
   };
 }());
