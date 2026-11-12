@@ -14,7 +14,9 @@ An in-app notification system for APEX applications.
 - Clicking a notification redirects to the target page and reduces the unread count
 - Designed for record changes, deletions, and approval requests
 
-![Notification Center](screenshots/notification-center.png)
+![Notification Center]
+<img width="1662" height="777" alt="image" src="https://github.com/user-attachments/assets/9c6ac47a-7ada-4048-9b24-7d01c81fdec3" />
+
 
 ### 🎨 Modern Theme (planned)
 Style layer to give existing APEX apps a cleaner, more modern look.
